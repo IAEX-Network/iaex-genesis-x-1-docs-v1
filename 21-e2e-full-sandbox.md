@@ -1,9 +1,14 @@
+
+
 # Full Network Sandbox (e2e_full)
 
 `cmd/e2e_full` is the canonical end-to-end test for Genesis X-1. It simulates a complete 5-party agricultural supply-chain trade on the live production API — from actor registration through to cross-party Ed25519 verification.
 
 Run it to validate that the network is working correctly, or as a live demonstration of the full protocol.
 
+**[→ Download Latest Release](https://github.com/IAEX-Network/iaex-genesis-x-1-v1-sandbox/releases/tag/Release-Sanbox)**
+
+**[→ Documentation at](https://developer.iaexnetwrok.com)**
 ---
 
 ## What It Does
