@@ -8,7 +8,7 @@ Run it to validate that the network is working correctly, or as a live demonstra
 
 **[→ Download Latest Release](https://github.com/IAEX-Network/iaex-genesis-x-1-v1-sandbox/releases/tag/Release-Sanbox)**
 
-**[→ Documentation at](https://developer.iaexnetwrok.com)**
+**[→ Documentation at](https://developer.iaexnetwork.com)**
 ---
 
 ## What It Does
