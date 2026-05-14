@@ -13,6 +13,60 @@ An event append in Genesis X-1 delivers two separate proofs:
 
 These are independent guarantees. Chain continuity does not prove who wrote an event. Actor authorization does not prove the event's position in the chain. Both are required for full verification.
 
+## Event Types and Payload Design
+
+When appending events via `POST /traceledger/master/{uuid}/events`, the caller defines both the event type and the payload. Genesis X-1 makes no assumptions about schema — design them for the domain.
+
+### Naming Convention
+
+```
+{NOUN}_{VERB}         → SHIPMENT_DISPATCHED
+{NOUN}_{PAST_STATE}   → INVOICE_RAISED, PAYMENT_CONFIRMED
+{NOUN}_{ACTION}       → QUALITY_CHECK_PASSED, CUSTOMS_CLEARED
+```
+
+### Example Payloads
+
+```json
+// INVOICE_RAISED
+{
+  "invoice_number": "INV-2026-001",
+  "amount": 125000,
+  "currency": "INR",
+  "due_date": "2026-06-15"
+}
+
+// SHIPMENT_DISPATCHED
+{
+  "carrier": "BlueDart",
+  "tracking_number": "BD123456789",
+  "dispatched_at": "2026-05-10T08:00:00Z",
+  "items": [{"sku": "WHEAT-001", "quantity": 500, "unit": "kg"}]
+}
+
+// QUALITY_CHECK_PASSED
+{
+  "inspector": "QualityLabs India",
+  "grade": "A",
+  "passed_at": "2026-05-09T14:00:00Z"
+}
+
+// PAYMENT_CONFIRMED
+{
+  "transaction_id": "TXN-987654",
+  "amount": 125000,
+  "currency": "INR",
+  "method": "NEFT"
+}
+
+// CUSTOMS_CLEARED
+{
+  "customs_ref": "CUS-2026-9876",
+  "cleared_at": "2026-05-11T16:00:00Z",
+  "port": "JNPT"
+}
+```
+
 ## How Events Are Appended
 
 At launch, public event append is exposed through:

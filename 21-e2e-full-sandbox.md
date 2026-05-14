@@ -1,14 +1,65 @@
+# Full Network Sandbox
 
-
-# Full Network Sandbox (e2e_full)
-
-`cmd/e2e_full` is the canonical end-to-end test for Genesis X-1. It simulates a complete 5-party agricultural supply-chain trade on the live production API — from actor registration through to cross-party Ed25519 verification.
+The Genesis X-1 sandbox simulates a complete 5-party agricultural supply-chain trade on the live production API — from actor registration through to cross-party Ed25519 verification.
 
 Run it to validate that the network is working correctly, or as a live demonstration of the full protocol.
 
-**[→ Download Latest Release](https://github.com/IAEX-Network/iaex-genesis-x-1-v1-sandbox/releases/tag/Release-Sanbox)**
+---
 
-**[→ Documentation at](https://developer.iaexnetwork.com)**
+## Option 1 — Hosted (no install, no download)
+
+Trigger the full verification from the live server — output streams in real time:
+
+```bash
+curl -N "https://api.iaexnetwork.com/sandbox/run"
+```
+
+Or open directly in any browser:
+
+```
+https://api.iaexnetwork.com/sandbox/run
+```
+
+No API key required. Multiple concurrent runs are supported — each run generates a unique ID so there are no conflicts.
+
+---
+
+## Option 2 — Download Binary (no Go needed)
+
+Download a pre-built binary for your platform:
+
+**[→ Download Latest Release](https://github.com/IAEX-Network/iaex-genesis-x-1-v1-sandbox/releases)**
+
+| Platform | File |
+|----------|------|
+| Windows | `e2e_full_windows_amd64.exe` |
+| Linux | `e2e_full_linux_amd64` |
+| macOS (Apple Silicon) | `e2e_full_macos_arm64` |
+
+```bash
+# Linux / macOS
+chmod +x e2e_full_linux_amd64
+./e2e_full_linux_amd64
+
+# Windows — double-click or run from terminal
+e2e_full_windows_amd64.exe
+```
+
+---
+
+## Option 3 — Run from Source (Go required)
+
+```bash
+# From the backend repo
+go run ./cmd/e2e_full
+
+# Against local server
+go run ./cmd/e2e_full -base-url http://localhost:8080 -region in
+
+# As a standalone module (no clone needed)
+go run github.com/IAEX-Network/iaex-genesis-x-1-sandbox@latest
+```
+
 ---
 
 ## What It Does
@@ -28,17 +79,14 @@ FarmFresh Ltd (Supplier)  ─── ships wheat ───►  RetailCo Ltd (Buye
 
 ---
 
-## Quick Start
+## Flags
 
-```bash
-# Against production API (default)
-go run ./cmd/e2e_full
+| Flag | Default | Description |
+|------|---------|-------------|
+| `-base-url` | `https://api.iaexnetwork.com` | API base URL |
+| `-region` | `in` | Region for actor registration (`in` or `eu`) |
 
-# Against local server
-go run ./cmd/e2e_full -base-url http://localhost:8080 -region in
-```
-
-No environment variables required. The run ID is auto-generated (timestamp-based). Every actor registered uses a unique run ID suffix to avoid collisions across concurrent runs.
+No environment variables required. Run ID is auto-generated (timestamp-based). Concurrent runs are supported — each run registers actors with a unique suffix.
 
 ---
 
@@ -140,15 +188,6 @@ cmd/e2e_full/
 ├── trade_phases.go  — all 5-party roles: Auditor, Transport, Bank, ORDER ledger/events, close
 └── verify.go        — Phase 10A (SigLog) + Phase 10B (cross-party) verification
 ```
-
----
-
-## Flags
-
-| Flag | Default | Description |
-|------|---------|-------------|
-| `-base-url` | `https://api.iaexnetwork.com` | API base URL |
-| `-region` | `in` | Region for actor registration (`in` or `eu`) |
 
 ---
 
